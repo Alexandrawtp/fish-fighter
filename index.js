@@ -33,6 +33,7 @@ function startGame() {
 function updateCanvas() {
     clearCanvas();
     drawFish();
+    drawSmallFishes();
     drawSharks();
     drawShells();
     drawShellsCounter();
@@ -58,6 +59,15 @@ function drawSharks() {
     }
 }
 
+function drawSmallFishes() {
+    const greenFish = document.createElement('img');
+    greenFish.src = 'images/greenfish.png';
+    ctx.drawImage(greenFish, game.greenFishX, game.greenFishY, 50, 40);
+    const yellowFish = document.createElement('img');
+    yellowFish.src = 'images/yellowfish.png';
+    ctx.drawImage(yellowFish, game.yellowFishX, game.yellowFishY, 50, 40);
+}
+
 function drawShells() {
     const shellImg = document.createElement('img');
     shellImg.src = 'images/shell1.png';
@@ -69,7 +79,7 @@ function drawShells() {
 function drawShellsCounter() {
     ctx.font = '35px Serif';
     ctx.fillStyle = 'aquamarine';
-    ctx.fillText(`Shells : ${game.shellCounter}`, 100, 100);
+    ctx.fillText(`Shells : ${game.shellCounter}`, 10, 100);
     let domLevel = document.querySelector('h2 span');
 }
 
@@ -101,6 +111,7 @@ function endGame() {
     })
 }
 
+
 document.addEventListener('keydown', (e) => {
     switch (e.key) {
         case 'ArrowUp':
@@ -114,6 +125,10 @@ document.addEventListener('keydown', (e) => {
             break;
         case 'ArrowRight':
             game.movePlayerRight();
+            break;
+        case 'Enter':
+            console.log("Enter");
+            game.sendFishes();
             break;
     }
 });

@@ -113,11 +113,21 @@ class Game {
                 }
             }
         }
+        for (let enemy of aliveEnemies) {
+            if (this.greenFishX < enemy.x + this.sharkWidth &&
+                this.greenFishX + 70 > enemy.x &&
+                this.greenFishY < enemy.y + this.sharkHeight &&
+                this.greenFishY + this.canvasHeight/2 > enemy.y) {
+                enemy.isAlive = false;
+                //this.shells.splice(i, 2); //looper pour acceder add
+                console.log("collision bouclier");
+            }
+        }
     }
 
     grab() {
         //console.log(this.shells[0].x)
-        for (let i=0; i < this.shells.length; i++) {
+        for (let i = 0; i < this.shells.length; i++) {
             if (this.playerX < this.shells[i].x + this.shellWidth &&
                 this.playerX + this.fishWidth > this.shells[i].x &&
                 this.playerY < this.shells[i].y + this.shellHeight &&
@@ -126,6 +136,18 @@ class Game {
                 this.shells.splice(i, 1)
             }
         }
+    }
+
+    sendFishes() {
+        this.greenFishX = 0;
+        this.greenFishY = canvasHeight / 4;
+        this.yellowFishX = 0;
+        this.yellowFishY = 3 * canvasHeight / 4;
+        this.timerSmallFishes = setInterval(() => {
+            this.greenFishX += 10;
+            this.yellowFishX += 10;
+            this.fight();
+        }, 30);
     }
 }
 
