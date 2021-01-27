@@ -9,7 +9,8 @@ const shellWidth = 50;
 let playerLives = 4;
 let healthBar = 50;
 let healthBarColor = 'green';
-let gameOverScreen = document.getElementById('game-over');
+//let gameOverScreen = document.getElementById('game-over');
+//gameOverScreen.style.display = 'none';
 
 const game = new Game(
     canvasHeight, canvasWidth,
@@ -86,8 +87,8 @@ function drawLevel() {
     ctx.font = '35px Serif';
     ctx.fillStyle = 'aquamarine';
     ctx.fillText(`Level : ${game.level}`, 10, 50);
-    let domLevel = document.querySelector('h2 span');
-    domLevel.innerHTML = game.level;
+    let domLevel = document.querySelector('h2');
+    domLevel.innerHTML = `Level ${game.level}`;
 }
 
 function drawHealthBar() {
@@ -103,7 +104,8 @@ function drawHealthBar() {
 }
 
 function endGame() {
-    canvas.style.display = 'none';
+    canvas.style.display = 'none'; //ctx.clearRect?
+    gameOverScreen.style.display = 'block';
     gameOverScreen.style.display = 'flex'
     tryAgainBtn.addEventListener('click', () => {
         restartGame();
@@ -153,11 +155,9 @@ function sound(src) {
     }
 }
 
-
 window.addEventListener('load', () => {
     let coolWater = new sound('sounds/cool-water.mp3');
     //coolWater.play();
-    gameOverScreen.style.display = 'none';
     startBtn.addEventListener('click', () => {
         startGame();
     })

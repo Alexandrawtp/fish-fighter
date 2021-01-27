@@ -148,6 +148,7 @@ class Game {
             this.fight();
         }, 30);
     }
+
 }
 
 class Enemy {
