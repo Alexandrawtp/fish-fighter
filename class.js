@@ -117,9 +117,8 @@ class Game {
             if (this.greenFishX < enemy.x + this.sharkWidth &&
                 this.greenFishX + 70 > enemy.x &&
                 this.greenFishY < enemy.y + this.sharkHeight &&
-                this.greenFishY + this.canvasHeight/2 > enemy.y) {
+                this.greenFishY + this.canvasHeight / 2 > enemy.y) {
                 enemy.isAlive = false;
-                //this.shells.splice(i, 2); //looper pour acceder add
                 console.log("collision bouclier");
             }
         }
@@ -133,7 +132,7 @@ class Game {
                 this.playerY < this.shells[i].y + this.shellHeight &&
                 this.playerY + this.fishHeight > this.shells[i].y) {
                 this.shellCounter++;
-                this.shells.splice(i, 1)
+                this.shells.splice(i, 1);
             }
         }
     }

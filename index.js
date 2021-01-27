@@ -33,9 +33,9 @@ function startGame() {
 function updateCanvas() {
     clearCanvas();
     drawFish();
-    drawSmallFishes();
     drawSharks();
     drawShells();
+    drawSmallFishes();
     drawShellsCounter();
     drawLevel();
     drawHealthBar();
@@ -80,7 +80,6 @@ function drawShellsCounter() {
     ctx.font = '35px Serif';
     ctx.fillStyle = 'aquamarine';
     ctx.fillText(`Shells : ${game.shellCounter}`, 10, 100);
-    let domLevel = document.querySelector('h2 span');
 }
 
 function drawLevel() {
@@ -126,12 +125,16 @@ document.addEventListener('keydown', (e) => {
         case 'ArrowRight':
             game.movePlayerRight();
             break;
-        case 'Enter':
-            console.log("Enter");
-            game.sendFishes();
-            break;
     }
 });
+
+document.addEventListener('keydown', (e) => {
+    if (e.keyCode == '32' && game.shellCounter >= 2) {
+        console.log("space");
+        game.shellCounter -= 2;
+        game.sendFishes();
+    }
+})
 
 
 function sound(src) {
