@@ -11,7 +11,12 @@ let healthBar = 50;
 let healthBarColor = 'green';
 let gameOverScreen = document.getElementById('game-over');
 
-const game = new Game(canvasHeight, canvasWidth, fishWidth, fishHeight, sharkWidth, sharkHeight);
+const game = new Game(
+    canvasHeight, canvasWidth,
+    fishWidth, fishHeight,
+    sharkWidth, sharkHeight,
+    shellWidth, shellHeight
+);
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');

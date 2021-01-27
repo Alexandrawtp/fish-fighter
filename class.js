@@ -108,12 +108,11 @@ class Game {
         }
     }
     grab() {
-        console.log("grab", this.shells.length);
         //console.log(this.shells[0].x)
         for (let shell in this.shells) {
-            if (this.playerX < shell.x + this.sharkWidth &&
+            if (this.playerX < shell.x + this.shellWidth &&
                 this.playerX + this.fishWidth > shell.x &&
-                this.playerY < shell.y + this.sharkHeight &&
+                this.playerY < shell.y + this.shellHeight &&
                 this.playerY + this.fishHeight > shell.y) {
                 console.log("collision coquillage");
                // this.shells.splice(i, 1);
@@ -150,7 +149,6 @@ class Shell {
         this.timerShell = setInterval(() => {
             if (this.isGrab) {
                 shellCounter++;
-                console.log("shellcounter", shellCounter);
             }
         }, 30);
     }
