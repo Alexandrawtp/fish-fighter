@@ -18,6 +18,7 @@ class Game {
         this.playerLives = playerLives;
         this.deadPlayer = false;
     }
+
     start(drawCallback, endCallback) {
         this.enemies.push(new Enemy(this)); //first shark
         this.shells.push(new Shell(this));
@@ -30,6 +31,7 @@ class Game {
         this.increaseLevel();
         this.endCallback = endCallback;
     }
+
     createPlayer() {
         this.playerX = 0;
         this.playerY = canvasHeight / 2;
@@ -38,16 +40,18 @@ class Game {
     movePlayerUp() {
         this.playerY = Math.max(this.playerY - playerSpeed, 0);
     }
+
     movePlayerDown() {
         this.playerY = Math.min(this.playerY + playerSpeed, this.canvasHeight - fishHeight);
     }
+
     movePlayerLeft() {
         this.playerX = Math.max(this.playerX - playerSpeed, 0);
     }
+
     movePlayerRight() {
         this.playerX = Math.min(this.playerX + playerSpeed, this.canvasWidth - fishWidth);
     }
-
 
     createEnemy(enemiesDelay) {
         if (this.enemyInterval) {
@@ -57,6 +61,7 @@ class Game {
             this.enemies.push(new Enemy(this));
         }, enemiesDelay);
     }
+
     createShell(shellsDelay) {
         if (this.shellInterval) {
             clearInterval(this.shellInterval);
@@ -77,15 +82,17 @@ class Game {
             this.setLevel(this.level + 1);
         }, 10000);
     }
+
     setLevel(level) {
         this.level = level;
         this.enemiesDelay = 800; //frequence d'arrivée des requins au niveau 1
-        this.shellsDelay = 1000; 
+        this.shellsDelay = 1000;
         if (this.level <= 9) {
             this.createEnemy(2000 - 100 * level); //frequence d'arrivee des requins dès niveau 2 (augmente)
-            this.createShell(8000 + 50 * level); 
+            this.createShell(8000 + 50 * level);
         }
     }
+
     fight() {
         let aliveEnemies = this.enemies.filter(enemy => enemy.isAlive == true)
         if (this.playerLives == 0) {
@@ -107,17 +114,16 @@ class Game {
             }
         }
     }
+
     grab() {
         //console.log(this.shells[0].x)
-        for (let shell in this.shells) {
+        for (let shell of this.shells) {
             if (this.playerX < shell.x + this.shellWidth &&
                 this.playerX + this.fishWidth > shell.x &&
                 this.playerY < shell.y + this.shellHeight &&
                 this.playerY + this.fishHeight > shell.y) {
                 console.log("collision coquillage");
-               // this.shells.splice(i, 1);
-               // shell.isGrab = true;
-                //this.shells.splice(shell);
+                if (shell.isGrab = true;)
             }
         }
     }

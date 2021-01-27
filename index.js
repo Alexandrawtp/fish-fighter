@@ -30,12 +30,6 @@ function startGame() {
     game.start(updateCanvas, endGame);
 }
 
-function restartGame() {
-    window.addEventListener('load', () => {
-        startGame();
-    })
-}
-
 function updateCanvas() {
     clearCanvas();
     drawFish();
