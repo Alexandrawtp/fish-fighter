@@ -1,23 +1,40 @@
 const playerSpeed = 30;
 
 class Game {
-    constructor(canvasHeight, canvasWidth, fishWidth, fishHeight, sharkWidth, sharkHeight) {
+    constructor(canvasHeight, canvasWidth, fishWidth, fishHeight, sharkWidth, sharkHeight, shellWidth, shellHeight) {
         this.canvasHeight = canvasHeight;
         this.canvasWidth = canvasWidth;
         this.fishWidth = fishWidth;
         this.fishHeight = fishHeight;
+        this.shellWidth = shellWidth;
+        this.shellHeight = shellHeight;
         this.sharkWidth = sharkWidth;
         this.sharkHeight = sharkHeight;
         this.createPlayer();
         this.enemies = [];
+        this.shells = [];
+        this.shellCounter = 0;
         this.enemyInterval = null; //dès niv 2, interval de 3000ms - (200 x level)
         this.playerLives = playerLives;
         this.deadPlayer = false;
+    }
+    start(drawCallback, endCallback) {
+        this.enemies.push(new Enemy(this)); //first shark
+        this.shells.push(new Shell(this));
+        this.timer = setInterval(() => { //check if there is a collision
+            this.fight();
+            this.grab();
+            requestAnimationFrame(drawCallback);
+        }, 10);
+        this.setLevel(1);
+        this.increaseLevel();
+        this.endCallback = endCallback;
     }
     createPlayer() {
         this.playerX = 0;
         this.playerY = canvasHeight / 2;
     }
+
     movePlayerUp() {
         this.playerY = Math.max(this.playerY - playerSpeed, 0);
     }
@@ -30,6 +47,8 @@ class Game {
     movePlayerRight() {
         this.playerX = Math.min(this.playerX + playerSpeed, this.canvasWidth - fishWidth);
     }
+
+
     createEnemy(enemiesDelay) {
         if (this.enemyInterval) {
             clearInterval(this.enemyInterval);
@@ -38,16 +57,16 @@ class Game {
             this.enemies.push(new Enemy(this));
         }, enemiesDelay);
     }
-    start(drawCallback, endCallback) {
-        this.endCallback = endCallback
-        this.setLevel(1);
-        this.enemies.push(new Enemy(this)); //first shark
-        this.timer = setInterval(() => {
-            this.fight();
-            requestAnimationFrame(drawCallback);
-        }, 10);
-        this.increaseLevel();
+    createShell(shellsDelay) {
+        if (this.shellInterval) {
+            clearInterval(this.shellInterval);
+        }
+        this.shellInterval = setInterval(() => {
+            this.shells.push(new Shell(this));
+            console.log("new shell");
+        }, shellsDelay);
     }
+
     end() {
         clearInterval(this.timer);
         this.endCallback();
@@ -61,13 +80,14 @@ class Game {
     setLevel(level) {
         this.level = level;
         this.enemiesDelay = 800; //frequence d'arrivée des requins au niveau 1
+        this.shellsDelay = 1000; 
         if (this.level <= 9) {
             this.createEnemy(2000 - 100 * level); //frequence d'arrivee des requins dès niveau 2 (augmente)
+            this.createShell(8000 + 50 * level); 
         }
     }
     fight() {
         let aliveEnemies = this.enemies.filter(enemy => enemy.isAlive == true)
-        //console.log(aliveEnemies.length);
         if (this.playerLives == 0) {
             this.playerY += 10;
             if (this.playerY >= canvasHeight) {
@@ -80,10 +100,25 @@ class Game {
                 this.playerY < enemy.y + this.sharkHeight &&
                 this.playerY + this.fishHeight > enemy.y) {
                 enemy.isAlive = false;
+                console.log("collision");
                 if (this.playerLives > 0) {
                     this.playerLives--;
                 }
-                //console.log(`fish lives = ${this.playerLives}`);
+            }
+        }
+    }
+    grab() {
+        console.log("grab", this.shells.length);
+        //console.log(this.shells[0].x)
+        for (let shell in this.shells) {
+            if (this.playerX < shell.x + this.sharkWidth &&
+                this.playerX + this.fishWidth > shell.x &&
+                this.playerY < shell.y + this.sharkHeight &&
+                this.playerY + this.fishHeight > shell.y) {
+                console.log("collision coquillage");
+               // this.shells.splice(i, 1);
+               // shell.isGrab = true;
+                //this.shells.splice(shell);
             }
         }
     }
@@ -96,7 +131,7 @@ class Enemy {
         this.x = this.game.canvasWidth - 400; //shark coordonnées  
         this.y = Math.floor(Math.random() * this.game.canvasHeight - sharkHeight)
         this.timer = setInterval(() => {
-            if (this.isAlive){
+            if (this.isAlive) {
                 this.x -= 7; //speed of sharks
             } else {
                 this.y += 10;
@@ -104,4 +139,19 @@ class Enemy {
         }, 30);
     }
 
+}
+
+class Shell {
+    constructor(game) {
+        this.game = game;
+        this.isGrab = false;
+        this.x = Math.floor(Math.random() * this.game.canvasWidth - shellWidth);
+        this.y = Math.floor(Math.random() * this.game.canvasHeight - shellHeight);
+        this.timerShell = setInterval(() => {
+            if (this.isGrab) {
+                shellCounter++;
+                console.log("shellcounter", shellCounter);
+            }
+        }, 30);
+    }
 }

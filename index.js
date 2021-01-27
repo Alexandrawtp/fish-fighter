@@ -4,6 +4,8 @@ const fishHeight = 70;
 const fishWidth = 120;
 const sharkHeight = 100;
 const sharkWidth = 250;
+const shellHeight = 50;
+const shellWidth = 50;
 let playerLives = 4;
 let healthBar = 50;
 let healthBarColor = 'green';
@@ -15,6 +17,28 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 const startBtn = document.querySelector('#start');
+const tryAgainBtn = document.getElementById('try-again');
+
+function startGame() {
+    canvas.style.display = 'block';
+    startBtn.style.display = 'none';
+    game.start(updateCanvas, endGame);
+}
+
+function restartGame() {
+    window.addEventListener('load', () => {
+        startGame();
+    })
+}
+
+function updateCanvas() {
+    clearCanvas();
+    drawFish();
+    drawSharks();
+    drawShells();
+    drawLevel();
+    drawHealthBar();
+}
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -34,6 +58,14 @@ function drawSharks() {
     }
 }
 
+function drawShells() {
+    const shellImg = document.createElement('img');
+    shellImg.src = 'images/shell1.png';
+    for (let shell of game.shells) {
+        ctx.drawImage(shellImg, shell.x, shell.y, shellWidth, shellHeight);
+    }
+}
+
 function drawLevel() {
     ctx.font = '35px Serif';
     ctx.fillStyle = 'aquamarine';
@@ -42,8 +74,7 @@ function drawLevel() {
     domLevel.innerHTML = game.level;
 }
 
-
-function drawHealthBar(){
+function drawHealthBar() {
     if (game.playerLives > 2) {
         healthBarColor = 'green';
     } else if (game.playerLives <= 1) {
@@ -55,23 +86,12 @@ function drawHealthBar(){
     ctx.fillRect(20, 600, healthBar * game.playerLives, 20);
 }
 
-function updateCanvas() {
-    clearCanvas();
-    drawLevel();
-    drawFish();
-    drawSharks();
-    drawHealthBar();
-}
-
-function startGame() {
-    canvas.style.display = 'block';
-    startBtn.style.display = 'none';
-    game.start(updateCanvas, endGame);
-}
-
 function endGame() {
     canvas.style.display = 'none';
     gameOverScreen.style.display = 'flex'
+    tryAgainBtn.addEventListener('click', () => {
+        restartGame();
+    })
 }
 
 document.addEventListener('keydown', (e) => {
@@ -99,20 +119,21 @@ function sound(src) {
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
     document.body.appendChild(this.sound);
-    this.play = function(){
+    this.play = function () {
         this.sound.play();
     }
-    this.stop = function(){
+    this.stop = function () {
         this.sound.pause();
-    }    
+    }
 }
+
 
 window.addEventListener('load', () => {
     let coolWater = new sound('sounds/cool-water.mp3');
     //coolWater.play();
     gameOverScreen.style.display = 'none';
     startBtn.addEventListener('click', () => {
-        startGame()
+        startGame();
     })
 });
 
