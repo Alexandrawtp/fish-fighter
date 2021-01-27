@@ -35,6 +35,7 @@ function updateCanvas() {
     drawFish();
     drawSharks();
     drawShells();
+    drawShellsCounter();
     drawLevel();
     drawHealthBar();
 }
@@ -63,6 +64,13 @@ function drawShells() {
     for (let shell of game.shells) {
         ctx.drawImage(shellImg, shell.x, shell.y, shellWidth, shellHeight);
     }
+}
+
+function drawShellsCounter() {
+    ctx.font = '35px Serif';
+    ctx.fillStyle = 'aquamarine';
+    ctx.fillText(`Shells : ${game.shellCounter}`, 100, 100);
+    let domLevel = document.querySelector('h2 span');
 }
 
 function drawLevel() {
@@ -113,6 +121,7 @@ document.addEventListener('keydown', (e) => {
 
 function sound(src) {
     this.sound = document.createElement("audio");
+    this.sound.volume = 0.5;
     this.sound.src = src;
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");

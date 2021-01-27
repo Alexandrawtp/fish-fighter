@@ -117,13 +117,13 @@ class Game {
 
     grab() {
         //console.log(this.shells[0].x)
-        for (let shell of this.shells) {
-            if (this.playerX < shell.x + this.shellWidth &&
-                this.playerX + this.fishWidth > shell.x &&
-                this.playerY < shell.y + this.shellHeight &&
-                this.playerY + this.fishHeight > shell.y) {
-                console.log("collision coquillage");
-                if (shell.isGrab = true;)
+        for (let i=0; i < this.shells.length; i++) {
+            if (this.playerX < this.shells[i].x + this.shellWidth &&
+                this.playerX + this.fishWidth > this.shells[i].x &&
+                this.playerY < this.shells[i].y + this.shellHeight &&
+                this.playerY + this.fishHeight > this.shells[i].y) {
+                this.shellCounter++;
+                this.shells.splice(i, 1)
             }
         }
     }
