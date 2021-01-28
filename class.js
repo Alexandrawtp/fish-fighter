@@ -87,7 +87,7 @@ class Game {
         this.enemiesDelay = 700; //frequence d'arrivée des requins au niveau 1
         this.shellsDelay = 1000;
         if (this.level <= 9) {
-            this.createEnemy(1500 - 100 * level); //frequence d'arrivee des requins dès niveau 2 (augmente)
+            this.createEnemy(1200 - 100 * level); //frequence d'arrivee des requins dès niveau 2 (augmente)
             this.createShell(5000 + 100 * level);
         }
     }

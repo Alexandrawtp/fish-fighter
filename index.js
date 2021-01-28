@@ -106,14 +106,13 @@ function drawHealthBar() {
     ctx.fillRect(20, 600, healthBar * game.playerLives, 20);
 }
 
-function endGame() {
+function endGame() { 
     canvas.style.display = 'none'; 
     gameOverScreen.style.display = 'flex'
     tryAgainBtn.addEventListener('click', () => {
-        begin();
+        location.reload();
     })
 }
-
 
 document.addEventListener('keydown', (e) => {
     switch (e.key) {
@@ -159,7 +158,7 @@ function sound(src) {
 
 window.addEventListener('load', () => {
     let coolWater = new sound('sounds/cool-water.mp3');
-    coolWater.play();
+    //coolWater.play();
     canvas.style.display = 'none';
     startBtn.addEventListener('click', () => {
         startGame();
