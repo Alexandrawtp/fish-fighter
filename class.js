@@ -68,7 +68,6 @@ class Game {
         }
         this.shellInterval = setInterval(() => {
             this.shells.push(new Shell(this));
-            console.log("new shell");
         }, shellsDelay);
     }
 
@@ -85,11 +84,11 @@ class Game {
 
     setLevel(level) {
         this.level = level;
-        this.enemiesDelay = 800; //frequence d'arrivée des requins au niveau 1
+        this.enemiesDelay = 700; //frequence d'arrivée des requins au niveau 1
         this.shellsDelay = 1000;
         if (this.level <= 9) {
-            this.createEnemy(2000 - 100 * level); //frequence d'arrivee des requins dès niveau 2 (augmente)
-            this.createShell(8000 + 50 * level);
+            this.createEnemy(1500 - 100 * level); //frequence d'arrivee des requins dès niveau 2 (augmente)
+            this.createShell(5000 + 100 * level);
         }
     }
 
@@ -107,7 +106,6 @@ class Game {
                 this.playerY < enemy.y + this.sharkHeight &&
                 this.playerY + this.fishHeight > enemy.y) {
                 enemy.isAlive = false;
-                console.log("collision");
                 if (this.playerLives > 0) {
                     this.playerLives--;
                 }
@@ -119,13 +117,11 @@ class Game {
                 this.greenFishY < enemy.y + this.sharkHeight &&
                 this.greenFishY + this.canvasHeight / 2 > enemy.y) {
                 enemy.isAlive = false;
-                console.log("collision bouclier");
             }
         }
     }
 
     grab() {
-        //console.log(this.shells[0].x)
         for (let i = 0; i < this.shells.length; i++) {
             if (this.playerX < this.shells[i].x + this.shellWidth &&
                 this.playerX + this.fishWidth > this.shells[i].x &&

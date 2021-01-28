@@ -7,10 +7,14 @@ const sharkWidth = 250;
 const shellHeight = 50;
 const shellWidth = 50;
 let playerLives = 4;
-let healthBar = 50;
-let healthBarColor = 'green';
-//let gameOverScreen = document.getElementById('game-over');
-//gameOverScreen.style.display = 'none';
+let healthBar = 40;
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const startBtn = document.querySelector('#start');
+const screen1 = document.querySelector('#screen1');
+const tryAgainBtn = document.getElementById('try-again');
+let gameOverScreen = document.getElementById('game-over');
+gameOverScreen.style.display = 'none';
 
 const game = new Game(
     canvasHeight, canvasWidth,
@@ -19,16 +23,15 @@ const game = new Game(
     shellWidth, shellHeight
 );
 
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-
-const startBtn = document.querySelector('#start');
-const tryAgainBtn = document.getElementById('try-again');
-
 function startGame() {
+    clearCanvas();
+    screen1.style.display = 'none';
     canvas.style.display = 'block';
-    startBtn.style.display = 'none';
     game.start(updateCanvas, endGame);
+}
+
+function presentation() {
+    ctx.fillText = (`Hey you! Could you help me to cross safely the ocean? You can controll me with your arrow's keyboard and if you achieve to collecte two shells, press the spacebar and see what's happening !`);
 }
 
 function updateCanvas() {
@@ -78,13 +81,13 @@ function drawShells() {
 }
 
 function drawShellsCounter() {
-    ctx.font = '35px Serif';
+    ctx.font = '30px Arial';
     ctx.fillStyle = 'aquamarine';
     ctx.fillText(`Shells : ${game.shellCounter}`, 10, 100);
 }
 
 function drawLevel() {
-    ctx.font = '35px Serif';
+    ctx.font = '30px Arial';
     ctx.fillStyle = 'aquamarine';
     ctx.fillText(`Level : ${game.level}`, 10, 50);
     let domLevel = document.querySelector('h2');
@@ -93,7 +96,7 @@ function drawLevel() {
 
 function drawHealthBar() {
     if (game.playerLives > 2) {
-        healthBarColor = 'green';
+        healthBarColor = 'aquamarine';
     } else if (game.playerLives <= 1) {
         healthBarColor = 'red';
     } else {
@@ -104,11 +107,10 @@ function drawHealthBar() {
 }
 
 function endGame() {
-    canvas.style.display = 'none'; //ctx.clearRect?
-    gameOverScreen.style.display = 'block';
+    canvas.style.display = 'none'; 
     gameOverScreen.style.display = 'flex'
     tryAgainBtn.addEventListener('click', () => {
-        restartGame();
+        begin();
     })
 }
 
@@ -132,7 +134,6 @@ document.addEventListener('keydown', (e) => {
 
 document.addEventListener('keydown', (e) => {
     if (e.keyCode == '32' && game.shellCounter >= 2) {
-        console.log("space");
         game.shellCounter -= 2;
         game.sendFishes();
     }
@@ -141,7 +142,7 @@ document.addEventListener('keydown', (e) => {
 
 function sound(src) {
     this.sound = document.createElement("audio");
-    this.sound.volume = 0.5;
+    this.sound.volume = 0.2;
     this.sound.src = src;
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
@@ -155,17 +156,12 @@ function sound(src) {
     }
 }
 
+
 window.addEventListener('load', () => {
     let coolWater = new sound('sounds/cool-water.mp3');
-    //coolWater.play();
+    coolWater.play();
+    canvas.style.display = 'none';
     startBtn.addEventListener('click', () => {
         startGame();
     })
 });
-
-
-//sound (alvaro)
-// let splashScreenMusic = new Audio();
-// splashScreenMusic.src = "music..mp3"
-// splashScreenMusic.play()
-// endGame.volume = 0.05;
