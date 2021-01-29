@@ -1,4 +1,4 @@
-const playerSpeed = 30;
+const playerSpeed = 2;
 
 class Game {
     constructor(canvasHeight, canvasWidth, fishWidth, fishHeight, sharkWidth, sharkHeight, shellWidth, shellHeight) {
@@ -42,7 +42,7 @@ class Game {
     }
 
     movePlayerDown() {
-        this.playerY = Math.min(this.playerY + playerSpeed, this.canvasHeight - fishHeight);
+        this.playerY = Math.min(this.playerY + playerSpeed, this.canvasHeight - this.fishHeight);
     }
 
     movePlayerLeft() {
@@ -50,7 +50,10 @@ class Game {
     }
 
     movePlayerRight() {
-        this.playerX = Math.min(this.playerX + playerSpeed, this.canvasWidth - fishWidth);
+        console.log(this.canvasWidth, this.fishWidth)
+        this.playerX = Math.min(this.playerX + playerSpeed, this.canvasWidth - this.fishWidth);
+        console.log(this.playerX)
+
     }
 
     createEnemy(enemiesDelay) {
@@ -151,7 +154,7 @@ class Enemy {
     constructor(game) {
         this.game = game;
         this.isAlive = true;
-        this.x = this.game.canvasWidth - 400; //shark coordonnées  
+        this.x = this.game.canvasWidth; //shark coordonnées  
         this.y = Math.floor(Math.random() * this.game.canvasHeight - sharkHeight)
         this.timer = setInterval(() => {
             if (this.isAlive) {

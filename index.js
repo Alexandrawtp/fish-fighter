@@ -1,5 +1,5 @@
 const canvasHeight = 680;
-const canvasWidth = 1430;
+const canvasWidth = 1130;
 const fishHeight = 70;
 const fishWidth = 120;
 const sharkHeight = 100;
@@ -114,22 +114,79 @@ function endGame() {
     })
 }
 
-document.addEventListener('keydown', (e) => {
-    switch (e.key) {
-        case 'ArrowUp':
-            game.movePlayerUp();
-            break;
-        case 'ArrowDown':
-            game.movePlayerDown();
-            break;
-        case 'ArrowLeft':
-            game.movePlayerLeft();
-            break;
-        case 'ArrowRight':
-            game.movePlayerRight();
-            break;
+let keyUp = false; 
+let keyDown = false;
+let keyRight = false;
+let keyLeft = false;
+
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+
+function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        keyRight = true;
     }
-});
+    else if(e.keyCode == 37) {
+        keyLeft = true;
+    }
+    else if(e.keyCode == 40) {
+        keyDown = true;
+    }
+    else if(e.keyCode == 38) {
+        keyUp = true;
+    }
+}
+
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        keyRight = false;
+    }
+    else if(e.keyCode == 37) {
+        keyLeft = false;
+    }
+    else if(e.keyCode == 40) {
+        keyDown = false;
+    }
+    else if(e.keyCode == 38) {
+        keyUp = false;
+    }
+}
+
+let timerPlayer = setInterval(() => { //check if keypress
+    if(keyUp){
+        game.movePlayerUp();
+    }
+    if (keyRight) {
+        game.movePlayerRight();
+    }
+    if (keyDown) {
+        game.movePlayerDown();
+    }
+    if (keyLeft) {
+        game.movePlayerLeft();
+    }
+}, 5)
+
+
+// document.addEventListener('keydown', (e) => {});
+
+// function movePlayer() {
+//     switch (e.key) {
+//         case 'ArrowUp':
+//             game.movePlayerUp();
+//             break;
+//         case 'ArrowDown':
+//             game.movePlayerDown();
+//             break;
+//         case 'ArrowLeft':
+//             game.movePlayerLeft();
+//             break;
+//         case 'ArrowRight':
+//             game.movePlayerRight();
+//             break;
+//     }
+// }
+   
 
 document.addEventListener('keydown', (e) => {
     if (e.keyCode == '32' && game.shellCounter >= 2) {
@@ -141,7 +198,7 @@ document.addEventListener('keydown', (e) => {
 
 function sound(src) {
     this.sound = document.createElement("audio");
-    this.sound.volume = 0.2;
+    this.sound.volume = 0.1;
     this.sound.src = src;
     this.sound.setAttribute("preload", "auto");
     this.sound.setAttribute("controls", "none");
