@@ -8,6 +8,7 @@ const shellHeight = 50;
 const shellWidth = 50;
 let playerLives = 4;
 let healthBar = 40;
+let healthBarColor = 'aquamarine';
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const startBtn = document.querySelector('#start');
@@ -15,6 +16,8 @@ const screen1 = document.querySelector('#screen1');
 const tryAgainBtn = document.getElementById('try-again');
 let gameOverScreen = document.getElementById('game-over');
 gameOverScreen.style.display = 'none';
+const fishImg = document.createElement('img');
+fishImg.src = 'images/fish.png';
 
 const game = new Game(
     canvasHeight, canvasWidth,
@@ -50,8 +53,6 @@ function clearCanvas() {
 }
 
 function drawFish() {
-    const fishImg = document.createElement('img');
-    fishImg.src = 'images/fish.png';
     ctx.drawImage(fishImg, game.playerX, game.playerY, fishWidth, fishHeight);
 }
 
@@ -81,15 +82,15 @@ function drawShells() {
 }
 
 function drawShellsCounter() {
-    ctx.font = '30px Arial';
+    ctx.font = '20px Arial';
     ctx.fillStyle = 'aquamarine';
-    ctx.fillText(`Shells : ${game.shellCounter}`, 10, 100);
+    ctx.fillText(`Shells : ${game.shellCounter}`, 20, 100);
 }
 
 function drawLevel() {
-    ctx.font = '30px Arial';
+    ctx.font = '20px Arial';
     ctx.fillStyle = 'aquamarine';
-    ctx.fillText(`Level : ${game.level}`, 10, 50);
+    ctx.fillText(`Level : ${game.level}`, 20, 50);
     let domLevel = document.querySelector('h2');
     domLevel.innerHTML = `Level ${game.level}`;
 }
@@ -103,18 +104,20 @@ function drawHealthBar() {
         healthBarColor = 'orange';
     }
     ctx.fillStyle = healthBarColor;
-    ctx.fillRect(20, 600, healthBar * game.playerLives, 20);
+    ctx.fillRect(60, 600, healthBar * game.playerLives, 15);
+    ctx.drawImage(fishImg, 20, 595, 35, 25)
+    ctx.strokeRect(60, 600, 160, 15);
 }
 
-function endGame() { 
-    canvas.style.display = 'none'; 
+function endGame() {
+    canvas.style.display = 'none';
     gameOverScreen.style.display = 'flex'
     tryAgainBtn.addEventListener('click', () => {
         location.reload();
     })
 }
 
-let keyUp = false; 
+let keyUp = false;
 let keyDown = false;
 let keyRight = false;
 let keyLeft = false;
@@ -123,37 +126,31 @@ document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
 
 function keyDownHandler(e) {
-    if(e.keyCode == 39) {
+    if (e.keyCode == 39) {
         keyRight = true;
-    }
-    else if(e.keyCode == 37) {
+    } else if (e.keyCode == 37) {
         keyLeft = true;
-    }
-    else if(e.keyCode == 40) {
+    } else if (e.keyCode == 40) {
         keyDown = true;
-    }
-    else if(e.keyCode == 38) {
+    } else if (e.keyCode == 38) {
         keyUp = true;
     }
 }
 
 function keyUpHandler(e) {
-    if(e.keyCode == 39) {
+    if (e.keyCode == 39) {
         keyRight = false;
-    }
-    else if(e.keyCode == 37) {
+    } else if (e.keyCode == 37) {
         keyLeft = false;
-    }
-    else if(e.keyCode == 40) {
+    } else if (e.keyCode == 40) {
         keyDown = false;
-    }
-    else if(e.keyCode == 38) {
+    } else if (e.keyCode == 38) {
         keyUp = false;
     }
 }
 
 let timerPlayer = setInterval(() => { //check if keypress
-    if(keyUp){
+    if (keyUp) {
         game.movePlayerUp();
     }
     if (keyRight) {
@@ -186,7 +183,7 @@ let timerPlayer = setInterval(() => { //check if keypress
 //             break;
 //     }
 // }
-   
+
 
 document.addEventListener('keydown', (e) => {
     if (e.keyCode == '32' && game.shellCounter >= 2) {
