@@ -164,33 +164,16 @@ let timerPlayer = setInterval(() => { //check if keypress
     }
 }, 5)
 
-
-// document.addEventListener('keydown', (e) => {});
-
-// function movePlayer() {
-//     switch (e.key) {
-//         case 'ArrowUp':
-//             game.movePlayerUp();
-//             break;
-//         case 'ArrowDown':
-//             game.movePlayerDown();
-//             break;
-//         case 'ArrowLeft':
-//             game.movePlayerLeft();
-//             break;
-//         case 'ArrowRight':
-//             game.movePlayerRight();
-//             break;
-//     }
-// }
-
-
 document.addEventListener('keydown', (e) => {
     if (e.keyCode == '32' && game.shellCounter >= 2) {
+        let smallFishesNoise = new Audio ('sounds/smallFishes.wav');
+        smallFishesNoise.play();
+        smallFishesNoise.volume = 0.1;
         game.shellCounter -= 2;
         game.sendFishes();
     }
 })
+
 
 
 function sound(src) {
@@ -212,7 +195,7 @@ function sound(src) {
 
 window.addEventListener('load', () => {
     let coolWater = new sound('sounds/cool-water.mp3');
-    coolWater.play();
+    //coolWater.play();
     canvas.style.display = 'none';
     startBtn.addEventListener('click', () => {
         startGame();

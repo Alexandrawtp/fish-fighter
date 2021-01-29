@@ -17,6 +17,8 @@ class Game {
         this.enemyInterval = null; //dès niv 2, interval de 3000ms - (200 x level)
         this.playerLives = playerLives;
         this.deadPlayer = false;
+        this.blop = new Audio ('sounds/blop.wav');
+        this.boom = new Audio ('sounds/boom.wav')
     }
 
     start(drawCallback, endCallback) {
@@ -111,6 +113,8 @@ class Game {
                 enemy.isAlive = false;
                 if (this.playerLives > 0) {
                     this.playerLives--;
+                    this.boom.play();
+                    this.boom.volume = 0.1;
                 }
             }
         }
@@ -132,6 +136,8 @@ class Game {
                 this.playerY + this.fishHeight > this.shells[i].y) {
                 this.shellCounter++;
                 this.shells.splice(i, 1);
+                this.blop.play();
+                this.blop.volume = 0.1;
             }
         }
     }
