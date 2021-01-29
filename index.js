@@ -174,8 +174,6 @@ document.addEventListener('keydown', (e) => {
     }
 })
 
-
-
 function sound(src) {
     this.sound = document.createElement("audio");
     this.sound.volume = 0.1;
@@ -195,7 +193,7 @@ function sound(src) {
 
 window.addEventListener('load', () => {
     let coolWater = new sound('sounds/cool-water.mp3');
-    //coolWater.play();
+    coolWater.play();
     canvas.style.display = 'none';
     startBtn.addEventListener('click', () => {
         startGame();
