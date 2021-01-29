@@ -1,4 +1,4 @@
-const playerSpeed = 2;
+const playerSpeed = 1.2;
 
 class Game {
     constructor(canvasHeight, canvasWidth, fishWidth, fishHeight, sharkWidth, sharkHeight, shellWidth, shellHeight) {
@@ -142,8 +142,8 @@ class Game {
         this.yellowFishX = 0;
         this.yellowFishY = 3 * canvasHeight / 4;
         this.timerSmallFishes = setInterval(() => {
-            this.greenFishX += 10;
-            this.yellowFishX += 10;
+            this.greenFishX += 15;
+            this.yellowFishX += 15;
             this.fight();
         }, 30);
     }
