@@ -126,19 +126,37 @@ let keyLeft = false;
 
 let controls = document.getElementById('controls');
 
-let arrowUp = document.getElementById('arrow-up');
-let arrowDown = document.getElementById('arrow-down');
-let arrowRight = document.getElementById('arrow-right');
-let arrowLeft = document.getElementById('arrow-left');
+let arrowUp = document.getElementById('btn-up');
+let arrowDown = document.getElementById('btn-down');
+let arrowRight = document.getElementById('btn-right');
+let arrowLeft = document.getElementById('btn-left');
 
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
-arrowUp.addEventListener('touchStart', touchUp, false);
-arrowDown.addEventListener('touchend', keyUpHandler, false);
 
-function touchUp() {
-    keyUp = true;
-}
+arrowUp.addEventListener('click', () => {
+    if (game.playerY > 20) {
+        game.playerY -= 40;
+    }
+});
+
+arrowRight.addEventListener('click', () => {
+    if (game.playerX < canvasWidth-fishWidth) {
+        game.playerX += 40;
+    }
+});
+
+arrowDown.addEventListener('click', () => {
+    if (game.playerY < canvasHeight-fishHeight) {
+        game.playerY += 40;
+    }
+});
+
+arrowLeft.addEventListener('click', () => {
+    if (game.playerX > 0) {
+    game.playerX -= 40;
+    }
+});
 
 function keyDownHandler(e) {
     if (e.keyCode == 39) {

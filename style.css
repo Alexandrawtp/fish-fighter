@@ -130,9 +130,10 @@ h1 {
 /* commands */
 
 #controls {
+    display: 'none';
     position: fixed;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     right: 40px;
     bottom: 40px;
     display: flex;
@@ -160,4 +161,9 @@ h1 {
     width: 30px;
 }
 
-/* Responsive */
+#btn-up, #btn-right, #btn-down, #btn-left {
+    background-color: blue;
+    border: solid 2px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 10px black;
+}
