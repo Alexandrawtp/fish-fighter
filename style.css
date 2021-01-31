@@ -32,8 +32,6 @@ html {
 
 
 #logo {
-    margin-bottom: 40px;
-    margin-top: 10px;
     width: 350px;
 }
 
@@ -128,3 +126,38 @@ h1 {
     border: solid 4px black;
     background-color: rgb(94, 207, 241);
 }
+
+/* commands */
+
+#controls {
+    position: fixed;
+    width: 100px;
+    height: 100px;
+    right: 40px;
+    bottom: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#top-bottom-arrows {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#arrow-up, #arrow-down {
+    width: 30px;
+}
+
+#arrow-right {
+    margin: auto;
+    width: 30px;
+}
+
+#arrow-left {
+    margin: auto;
+    width: 30px;
+}
+
+/* Responsive */

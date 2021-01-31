@@ -30,6 +30,7 @@ function startGame() {
     clearCanvas();
     screen1.style.display = 'none';
     canvas.style.display = 'block';
+    controls.style.display = 'flex';
     game.start(updateCanvas, endGame);
 }
 
@@ -111,6 +112,7 @@ function drawHealthBar() {
 
 function endGame() {
     canvas.style.display = 'none';
+    controls.style.display = 'none';
     gameOverScreen.style.display = 'flex'
     tryAgainBtn.addEventListener('click', () => {
         location.reload();
@@ -122,8 +124,21 @@ let keyDown = false;
 let keyRight = false;
 let keyLeft = false;
 
+let controls = document.getElementById('controls');
+
+let arrowUp = document.getElementById('arrow-up');
+let arrowDown = document.getElementById('arrow-down');
+let arrowRight = document.getElementById('arrow-right');
+let arrowLeft = document.getElementById('arrow-left');
+
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('keyup', keyUpHandler, false);
+arrowUp.addEventListener('touchStart', touchUp, false);
+arrowDown.addEventListener('touchend', keyUpHandler, false);
+
+function touchUp() {
+    keyUp = true;
+}
 
 function keyDownHandler(e) {
     if (e.keyCode == 39) {
@@ -166,7 +181,7 @@ let timerPlayer = setInterval(() => { //check if keypress
 
 document.addEventListener('keydown', (e) => {
     if (e.keyCode == '32' && game.shellCounter >= 2) {
-        let smallFishesNoise = new Audio ('sounds/smallFishes.wav');
+        let smallFishesNoise = new Audio('sounds/smallFishes.wav');
         smallFishesNoise.play();
         smallFishesNoise.volume = 0.1;
         game.shellCounter -= 2;
@@ -191,10 +206,12 @@ function sound(src) {
 }
 
 
+
 window.addEventListener('load', () => {
     let coolWater = new sound('sounds/cool-water.mp3');
     coolWater.play();
     canvas.style.display = 'none';
+    controls.style.display = 'none';
     startBtn.addEventListener('click', () => {
         startGame();
     })
