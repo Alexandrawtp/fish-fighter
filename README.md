@@ -1,3 +1,5 @@
+# Fish Fighters - Game
+
 # Description
 
 FishFighter is a game where the player is a fish that has to travel in the ocean avoiding sharks. The player can collect shells to help him to fight the sharks.
@@ -14,3 +16,7 @@ Each time the fish hits a shark, his health bar decreases. The score is calculat
 - Decrease number of shells at each level
 - Define actions when the fish hits a shark or a shell (health bar decrease or collect the shell)
 - If 2 shells are collected, possibility to press space and send two fishes to help the player 
+
+# Ressources
+
+https://alexandrawtp.github.io/fish-fighter/
