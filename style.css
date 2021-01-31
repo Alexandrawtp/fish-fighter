@@ -130,7 +130,6 @@ h1 {
 /* commands */
 
 #controls {
-    display: 'none';
     position: fixed;
     width: 150px;
     height: 150px;

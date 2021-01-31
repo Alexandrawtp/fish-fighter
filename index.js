@@ -223,8 +223,6 @@ function sound(src) {
     }
 }
 
-
-
 window.addEventListener('load', () => {
     let coolWater = new sound('sounds/cool-water.mp3');
     coolWater.play();
