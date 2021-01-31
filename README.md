@@ -1,5 +1,3 @@
-# Fish Fighters - Game
-
 # Description
 
 FishFighter is a game where the player is a fish that has to travel in the ocean avoiding sharks. The player can collect shells to help him to fight the sharks.
