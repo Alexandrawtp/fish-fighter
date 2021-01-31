@@ -8,9 +8,9 @@ Each time the fish hits a shark, his health bar decreases. The score is calculat
 - Move the player in every directions
 - Create sharks moving horizontally
 - Create shells appearing randomly
-- Create lifes for sharks(1 life) and fish (4 lifes)
+- Create lifes for sharks(1 life) and for the fish (4 lifes)
 - Create an health bar to display the fish's number of lifes
 - Increase number of sharks at each level
 - Decrease number of shells at each level
 - Define actions when the fish hits a shark or a shell (health bar decrease or collect the shell)
-
+- If 2 shells are collected, possibility to press space and send two fishes to help the player 
