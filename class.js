@@ -14,17 +14,17 @@ class Game {
         this.enemies = [];
         this.shells = [];
         this.shellCounter = 0;
-        this.enemyInterval = null; //dès niv 2, interval de 3000ms - (200 x level)
+        this.enemyInterval = null;
         this.playerLives = playerLives;
         this.deadPlayer = false;
-        this.blop = new Audio ('sounds/blop.wav');
-        this.boom = new Audio ('sounds/boom.wav')
+        this.blop = new Audio('sounds/blop.wav');
+        this.boom = new Audio('sounds/boom.wav')
     }
 
     start(drawCallback, endCallback) {
         this.enemies.push(new Enemy(this)); //first shark
         this.shells.push(new Shell(this));
-        this.timer = setInterval(() => { //check if there is a collision
+        this.timer = setInterval(() => { //checks if there is a collision
             this.fight();
             this.grab();
             requestAnimationFrame(drawCallback);
@@ -62,7 +62,7 @@ class Game {
         if (this.enemyInterval) {
             clearInterval(this.enemyInterval);
         }
-        this.enemyInterval = setInterval(() => { //nouvel ennemi toutes les x sec
+        this.enemyInterval = setInterval(() => { //new ennemy each x sec
             this.enemies.push(new Enemy(this));
         }, enemiesDelay);
     }
@@ -76,11 +76,6 @@ class Game {
         }, shellsDelay);
     }
 
-    end() {
-        clearInterval(this.timer);
-        this.endCallback();
-    }
-
     increaseLevel() {
         this.levelTimer = setInterval(() => {
             this.setLevel(this.level + 1);
@@ -89,10 +84,10 @@ class Game {
 
     setLevel(level) {
         this.level = level;
-        this.enemiesDelay = 700; //frequence d'arrivée des requins au niveau 1
+        this.enemiesDelay = 700; //delay of shark arriving at level 1;
         this.shellsDelay = 1000;
         if (this.level <= 9) {
-            this.createEnemy(1200 - 100 * level); //frequence d'arrivee des requins dès niveau 2 (augmente)
+            this.createEnemy(1200 - 100 * level); //delay of shark arriving after level 1 (decrease at each level)
             this.createShell(5000 + 100 * level);
         }
     }
@@ -154,13 +149,18 @@ class Game {
         }, 30);
     }
 
+    end() {
+        clearInterval(this.timer);
+        this.endCallback();
+    }
+
 }
 
 class Enemy {
     constructor(game) {
         this.game = game;
         this.isAlive = true;
-        this.x = this.game.canvasWidth; //shark coordonnées  
+        this.x = this.game.canvasWidth;
         this.y = Math.floor(Math.random() * this.game.canvasHeight - sharkHeight)
         this.timer = setInterval(() => {
             if (this.isAlive) {

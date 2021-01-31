@@ -75,7 +75,7 @@ function drawSmallFishes() {
 
 function drawShells() {
     const shellImg = document.createElement('img');
-    shellImg.src = 'images/shell1.png';
+    shellImg.src = 'images/shell.png';
     for (let shell of game.shells) {
         ctx.drawImage(shellImg, shell.x, shell.y, shellWidth, shellHeight);
     }
@@ -117,6 +117,8 @@ function endGame() {
     })
 }
 
+// Keyboard commands
+
 let keyUp = false;
 let keyDown = false;
 let keyRight = false;
@@ -149,7 +151,7 @@ function keyUpHandler(e) {
     }
 }
 
-let timerPlayer = setInterval(() => { //check if keypress
+let timerPlayer = setInterval(() => { //checks if keypress
     if (keyUp) {
         game.movePlayerUp();
     }
@@ -165,7 +167,7 @@ let timerPlayer = setInterval(() => { //check if keypress
 }, 5)
 
 document.addEventListener('keydown', (e) => {
-    if (e.keyCode == '32' && game.shellCounter >= 2) {
+    if (e.keyCode == 32 && game.shellCounter >= 2) {
         let smallFishesNoise = new Audio('sounds/smallFishes.wav');
         smallFishesNoise.play();
         smallFishesNoise.volume = 0.1;
@@ -173,6 +175,8 @@ document.addEventListener('keydown', (e) => {
         game.sendFishes();
     }
 })
+
+// sound options
 
 function sound(src) {
     this.sound = document.createElement("audio");
