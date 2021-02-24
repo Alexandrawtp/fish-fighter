@@ -1,4 +1,4 @@
-[alt Logo](https://github.com/Alexandrawtp/fish-fighter/blob/master/images/logo.png)
+![alt Logo](https://github.com/Alexandrawtp/fish-fighter/blob/master/images/logo.png)
 
 # Description
 
