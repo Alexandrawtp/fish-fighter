@@ -1,3 +1,5 @@
+[alt Logo](https://github.com/Alexandrawtp/fish-fighter/blob/master/images/logo.png)
+
 # Description
 
 FishFighter is a game where the player is a fish that has to travel in the ocean avoiding sharks. The player can collect shells to help him to fight the sharks.
