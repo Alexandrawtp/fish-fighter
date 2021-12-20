@@ -1,4 +1,4 @@
-const playerSpeed = 1.2;
+const playerSpeed = 1.5;
 
 class Game {
     constructor(canvasHeight, canvasWidth, fishWidth, fishHeight, sharkWidth, sharkHeight, shellWidth, shellHeight) {
